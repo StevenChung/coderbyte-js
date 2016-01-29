@@ -12,49 +12,42 @@ The string will not be empty and will have at least one letter.
 
 function SimpleSymbols(str) {
 	var strArray = str.split('');
-	// split string into an array 
-	// each item of this array will be one character
-	// this lets us evaluate each item through a loop and each item independently
-
-	if (strArray[0] !== '+' && strArray[0] !== '=') {
+	// split the string into one character items and into an array 
+	if (strArray[0].search(/[A-Za-z]/) !== -1) {
 		return 'false';
 	}
-	// if the first character is NOT a + AND not an =
-	// return false
-	// in hindsight, this is slightly unnecessary
-	// we just need to check to see if the first character is a letter
-	// if it is, it's a false
+	// if the first item is a letter, it will fail the prescribed test
+	// thus, return a false
 
-	if (strArray[strArray.length - 1] !== '+' && strArray[strArray.length - 1] !== '=') {
+	// NOTE: String.prototype.search() can use a regex
+	// passed above is a regular expression that sees if it is a letter (between A-Z or a-z)
+	// thus, if the first item is a letter (returns index if true).
+
+	if (strArray[strArray.length - 1].search(/[A-Za-z]/) !== -1) {
 		return 'false';
 	}
-	// similar to above, but just the last character
+
+	// similar to above, but on the last item
 
 
 	for (var i = 1; i <= strArray.length - 2; i++) {
+		// the tests for the first and last item were above
+		// thus, this for-loop starts at the 2nd item and ends at the second to last item
 		if (strArray[i].search(/[A-Za-z]/) === 0) {
-		// look up .search() with regex
-		// if the string is a letter
-		// if the character is a letter, perform the subsequent check
+			// if the item is a letter, perform the following test
+
 			if (strArray[i - 1] !== '+' || strArray[i + 1] !== '+') {
 				return 'false';
 			}
-			// if the preceding letter is NOT a plus
-			// OR if the following letter is NOT a plus
-			// return a false
+			// if the preceding item is not a + or the following item is not a +
+			// return false (fails the prescribed test)
+
 		}
 	}
 
 	return 'true';
-	// if somehow we get to this point, all other conditions were not run
-	// thus, it's a 'true'!
-
+	// if you somehow get through the above gauntlet, return true
 
 	// can't use reduce()/filter() because the above tests were custom for the first/last item
+	// thus, the for-loop intentionally takes the second item up to (and including) the second to last item
 }
-
-
-
-
-
-
